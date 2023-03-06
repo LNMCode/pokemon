@@ -8,8 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-open class BaseActivity<T: ViewDataBinding>(
+abstract class BaseActivity<T: ViewDataBinding>(
     @LayoutRes private val contentLayoutId: Int,
 ) : AppCompatActivity(){
 
@@ -30,6 +29,23 @@ open class BaseActivity<T: ViewDataBinding>(
         super.onCreate(savedInstanceState)
         _binding = DataBindingUtil.setContentView(this, contentLayoutId) as T
         binding.run { lifecycleOwner = this@BaseActivity }
+    }
+
+    open fun showLoading(isShow: Boolean) {
+
+    }
+
+    open fun showErrorDialog(messageId: String) {
+
+    }
+
+    open fun showNotifyDialog(messageId: String) {
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

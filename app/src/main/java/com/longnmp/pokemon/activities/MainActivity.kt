@@ -1,12 +1,10 @@
 package com.longnmp.pokemon.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.longnmp.pokemon.R
+import com.longnmp.pokemon.base.BaseActivity
+import com.longnmp.pokemon.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
-}
+@AndroidEntryPoint
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main)
