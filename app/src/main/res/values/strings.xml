@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">pokemon</string>
+    <string name="image_pokemon">Image pokemon</string>
 </resources>

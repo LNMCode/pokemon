@@ -46,12 +46,13 @@ abstract class BaseFragment<T : ViewDataBinding>(
             false,
             bindingComponent
         )
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.lifecycleOwner = viewLifecycleOwner
+        registerAllEvent(viewModel, viewLifecycleOwner)
         setUpLayout()
         setUpEvents()
     }
