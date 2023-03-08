@@ -1,4 +1,4 @@
-package com.longnmp.pokemon.domain.pokemon
+package com.longnmp.pokemon.data.models.domain.pokemon
 
 data class Pokemon(
     val detail: String,
