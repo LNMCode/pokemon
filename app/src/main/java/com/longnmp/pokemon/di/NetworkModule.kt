@@ -1,6 +1,10 @@
 package com.longnmp.pokemon.di
 
+import android.content.Context
 import com.longnmp.pokemon.BuildConfig
+import com.longnmp.pokemon.data.network.apis.APIService
+import com.longnmp.pokemon.data.network.interceptors.NetworkInterceptor
+import com.longnmp.pokemon.data.network.interceptors.RequestInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -27,11 +31,25 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun provideRequestInterceptor(): RequestInterceptor = RequestInterceptor()
+
+    @Provides
+    @Singleton
+    fun provideNetworkInterceptor(
+        context: Context,
+    ): NetworkInterceptor = NetworkInterceptor(context)
+
+    @Provides
+    @Singleton
     fun provideOKHttpClient(
-        httpLoggingInterceptor: HttpLoggingInterceptor
+        httpLoggingInterceptor: HttpLoggingInterceptor,
+        requestInterceptor: RequestInterceptor,
+        networkInterceptor: NetworkInterceptor,
     ): OkHttpClient {
         val builder = OkHttpClient.Builder()
-        builder.interceptors().add(httpLoggingInterceptor)
+        builder.addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(requestInterceptor)
+            .addInterceptor(networkInterceptor)
         return builder.build()
     }
 
@@ -43,14 +61,20 @@ object NetworkModule {
     }
 
     @Provides
+    @Singleton
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
         moshiConverterFactory: MoshiConverterFactory
-    ): Retrofit{
+    ): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(moshiConverterFactory)
             .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .build()
+    }
+
+    @Provides
+    fun providePokemonAPI(retrofit: Retrofit): APIService {
+        return retrofit.create(APIService::class.java)
     }
 }
