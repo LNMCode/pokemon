@@ -7,6 +7,7 @@ import com.longnmp.pokemon.di.qualifiers.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -16,7 +17,14 @@ class PokemonUseCase @Inject constructor(
 ) {
 
     suspend fun getPokemon() = pokemonRepository.getPokemon().map {
-
+        when (it) {
+            is NetworkResult.Success -> {
+                it.data
+            }
+            is NetworkResult.Error -> {
+                throw it.exception
+            }
+        }
     }.flowOn(dispatcher)
 
 }

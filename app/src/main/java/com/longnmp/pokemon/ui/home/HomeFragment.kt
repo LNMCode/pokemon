@@ -10,17 +10,17 @@ import androidx.fragment.app.viewModels
 import com.longnmp.pokemon.R
 import com.longnmp.pokemon.base.BaseFragment
 import com.longnmp.pokemon.databinding.FragmentHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
-    override val viewModel: HomeViewModel by viewModels()
+    override val viewModel by viewModels<HomeViewModel>()
 
     override fun setUpLayout() {
-        TODO("Not yet implemented")
     }
 
     override fun setUpEvents() {
-        TODO("Not yet implemented")
     }
 
 }

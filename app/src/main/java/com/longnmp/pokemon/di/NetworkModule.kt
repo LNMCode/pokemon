@@ -10,6 +10,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -36,7 +37,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideNetworkInterceptor(
-        context: Context,
+        @ApplicationContext context: Context,
     ): NetworkInterceptor = NetworkInterceptor(context)
 
     @Provides
