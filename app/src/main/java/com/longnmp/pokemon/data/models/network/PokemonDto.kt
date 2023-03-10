@@ -9,7 +9,7 @@ import com.squareup.moshi.JsonClass
 data class PokemonDto(
     val detail: String,
 
-    @field:Json(name = "evolution")
+    @field:Json(name = "evolutions")
     val evolutionDto: List<EvolutionDto>,
     val forms: List<String>,
     val id: Int,

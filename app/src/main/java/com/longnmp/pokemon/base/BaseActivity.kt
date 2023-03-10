@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 abstract class BaseActivity<T: ViewDataBinding>(
     @LayoutRes private val contentLayoutId: Int,
@@ -36,11 +37,11 @@ abstract class BaseActivity<T: ViewDataBinding>(
     }
 
     open fun showErrorDialog(messageId: String) {
-
+        Timber.e("Error $messageId")
     }
 
     open fun showNotifyDialog(messageId: String) {
-
+        Timber.e("Error $messageId")
     }
 
     override fun onDestroy() {

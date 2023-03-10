@@ -6,14 +6,12 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class EvolutionDto(
-    val detail: String,
-    val id: Int,
-    val image: String,
+    val detail: String?,
+    val image: String?,
     val name: String
 ): DomainMapper<Evolution> {
     override fun toDomain() = Evolution(
         detail = detail,
-        id = id,
         image = image,
         name = name,
     )
