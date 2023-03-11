@@ -3,6 +3,7 @@ package com.longnmp.pokemon.base.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.longnmp.pokemon.databinding.LayoutItemHomeBinding
 
 abstract class BaseAdapter<T : Any, H : ViewDataBinding> :
     RecyclerView.Adapter<BaseViewHolder<H>>(), DefaultLifecycleObserver {
@@ -47,7 +49,7 @@ abstract class BaseAdapter<T : Any, H : ViewDataBinding> :
     /**
      * return view holder by resource id
      */
-    abstract fun viewHolder(view: View): BaseViewHolder<H>
+    abstract fun viewHolder(view: H): BaseViewHolder<H>
 
     /**
      * Called to check whether two objects represent the same item.
@@ -60,11 +62,11 @@ abstract class BaseAdapter<T : Any, H : ViewDataBinding> :
     abstract fun areContentsTheSameItem(oldItem: T, newItem: T): Boolean
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<H> {
-        return viewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                layout(), parent, false,
-            )
+        val binding = DataBindingUtil.inflate<H>(
+            LayoutInflater.from(parent.context),
+            layout(), parent, false,
         )
+        return viewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<H>, position: Int) {
