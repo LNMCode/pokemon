@@ -27,8 +27,10 @@ class HomeViewModel @Inject constructor(
         requestAPI {
             pokemonUseCase.getPokemon().collect { value ->
                 _pokemonData.postValue(value)
+                Timber.d("##### ", pokemonData.value?.size)
+
             }
         }
-        Timber.d("##### ", pokemonData.value?.size)
+
     }
 }

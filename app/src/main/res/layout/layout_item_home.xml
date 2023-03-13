@@ -50,7 +50,7 @@
                 style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{pokemon.id}"
+                android:text="@{String.valueOf(pokemon.id)}"
                 tools:text="001" />
 
         </LinearLayout>

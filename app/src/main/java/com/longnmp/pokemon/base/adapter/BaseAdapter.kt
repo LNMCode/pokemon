@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.longnmp.pokemon.databinding.LayoutItemHomeBinding
 
 abstract class BaseAdapter<T : Any, H : ViewDataBinding> :
-    RecyclerView.Adapter<BaseViewHolder<H>>(), DefaultLifecycleObserver {
+    RecyclerView.Adapter<BaseViewHolder<T, H>>(), DefaultLifecycleObserver {
 
     private val differ = AsyncListDiffer(
         getAdapterCallBack(),
@@ -49,7 +49,7 @@ abstract class BaseAdapter<T : Any, H : ViewDataBinding> :
     /**
      * return view holder by resource id
      */
-    abstract fun viewHolder(view: H): BaseViewHolder<H>
+    abstract fun viewHolder(view: H): BaseViewHolder<T, H>
 
     /**
      * Called to check whether two objects represent the same item.
@@ -61,7 +61,7 @@ abstract class BaseAdapter<T : Any, H : ViewDataBinding> :
      */
     abstract fun areContentsTheSameItem(oldItem: T, newItem: T): Boolean
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<H> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<T, H> {
         val binding = DataBindingUtil.inflate<H>(
             LayoutInflater.from(parent.context),
             layout(), parent, false,
@@ -69,9 +69,9 @@ abstract class BaseAdapter<T : Any, H : ViewDataBinding> :
         return viewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder<H>, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder<T, H>, position: Int) {
         try {
-            holder.bindData(data = differ.currentList[position] as Any)
+            holder.bindData(data = differ.currentList[position] as T)
         } catch (e: Exception) {
             e.printStackTrace()
         }

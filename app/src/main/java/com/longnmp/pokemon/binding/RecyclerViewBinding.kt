@@ -10,10 +10,11 @@ object RecyclerViewBinding {
     @BindingAdapter("adapterRVPokemon")
     fun bindAdapterRVPokemon(
         view: RecyclerView,
-        list: List<Pokemon>,
+        list: List<Pokemon>?,
     ) {
         val adapter = view.adapter
-        if (list.isNotEmpty() && adapter != null) {
+        if (adapter == null) view.adapter = HomeRecyclerAdapter()
+        if (list != null && list.isNotEmpty()) {
             if (adapter is HomeRecyclerAdapter) {
                 adapter.addSubmit(list)
             }

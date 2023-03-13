@@ -4,11 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-            name="adapter"
-            type="com.longnmp.pokemon.ui.home.HomeRecyclerAdapter" />
-
         <variable
             name="viewModel"
             type="com.longnmp.pokemon.ui.home.HomeViewModel" />
@@ -29,10 +24,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:adapter="@{adapter}"
             app:adapterRVPokemon="@{viewModel.pokemonData}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
