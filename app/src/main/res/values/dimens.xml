@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dps20">20dp</dimen>
+
+    <dimen name="width_card_view_item_home">160dp</dimen>
+</resources>
